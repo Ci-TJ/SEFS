@@ -47,7 +47,7 @@ def predictor(x_, o_dim_, o_type_, num_layers_=1, h_dim_=100, activation_fn=tf.n
     else:
         raise ValueError('Wrong output type. The value {}!!'.format(o_type_))
 
-    with tf.variable_scope('predictor', reuse=reuse):
+    with tf.compat.v1.variable_scope('predictor', reuse=reuse):
         if num_layers_ == 1:
             out =  tf.contrib.layers.fully_connected(inputs=x_, num_outputs=o_dim_, activation_fn=out_fn, weights_regularizer=w_reg_, scope='predictor_out')
         else: #num_layers > 1
@@ -82,7 +82,7 @@ def fcnet(x_, o_dim_, o_fn_, num_layers_=1, h_dim_=100, activation_fn=tf.nn.relu
         activation_fn_: tf activation functions
         reuse         : (bool) 
     '''
-    with tf.variable_scope(name, reuse=reuse):
+    with tf.compat.v1.variable_scope(name, reuse=reuse):
         if num_layers_ == 1:
             out =  tf.contrib.layers.fully_connected(inputs=x_, num_outputs=o_dim_, activation_fn=o_fn_, weights_regularizer=w_reg_, scope='layer_out')
         else: #num_layers > 1
@@ -120,7 +120,7 @@ class SEFS_SS_Phase:
 
         
     def _build_net(self):
-        with tf.variable_scope(self.name):            
+        with tf.compat.v1.variable_scope(self.name):            
             self.lr_rate        = tf.placeholder(tf.float32, name='learning_rate')   #predictor      
             self.k_prob         = tf.placeholder(tf.float32, name='keep_probability') 
             
@@ -251,7 +251,7 @@ class SEFS_S_Phase:
 
         
     def _build_net(self):
-        with tf.variable_scope(self.name):            
+        with tf.compat.v1.variable_scope(self.name):            
             self.lr_rate        = tf.placeholder(tf.float32, name='learning_rate') 
                         
             self.k_prob         = tf.placeholder(tf.float32, name='keep_probability')
